@@ -16,13 +16,14 @@ def bruteforce_caesar(ciphertext):
     occurence_list = []
     
     start_time = time.time()
-    for shift in range(26):
-        occurence_list.append(get_occurence(arr_do_caesar(dict, shift), sanitize_sentence(ciphertext)))
+    for i in range(25):
+        occurence_list.append(get_occurence(dict, sanitize_sentence(ciphertext)))
+        dict = arr_do_caesar(dict, 1)
 
     mostLikelyShift = occurence_list.index(max(occurence_list))
-    mostLikelyKey = (26 - mostLikelyShift) % 26
-    mostLikelyDecipheredText = do_caesar(ciphertext , mostLikelyKey)
-    print("Time taken               : " + str(int((time.time() - start_time) * 1000)) + "ms")
-    print("Most likely key          : " + str(mostLikelyKey))
+    mostLikelyDecryptionKey = (26 - mostLikelyShift) % 26
+    mostLikelyDecipheredText = do_caesar(ciphertext , mostLikelyDecryptionKey)
+    print("Time taken                   : " + str(int((time.time() - start_time) * 1000)) + "ms")
+    print("Most likely encryption key   : " + str(mostLikelyShift))
 
     return mostLikelyDecipheredText
